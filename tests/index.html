@@ -6,6 +6,7 @@
     <title>Dummy Tests</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:49152"> 
 
     {{content-for 'head'}}
     {{content-for 'test-head'}}
@@ -18,13 +19,14 @@
     {{content-for 'test-head-footer'}}
   </head>
   <body>
-
     {{content-for 'body'}}
     {{content-for 'test-body'}}
+
     <script src="assets/vendor.js"></script>
     <script src="assets/test-support.js"></script>
     <script src="assets/dummy.js"></script>
-    <script src="testem.js"></script>
+    <script src="testem.js" integrity=""></script>
+    <script src="assets/tests.js"></script>
     <script src="assets/test-loader.js"></script>
 
     {{content-for 'body-footer'}}

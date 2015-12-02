@@ -10,13 +10,18 @@ const DynamicForm = Ember.Component.extend({
 
   didReceiveAttrs() {
     const schema = this.attrs.schema.value;
+    let schemaObj;
     if (typeof schema === 'string') {
-      this.set('renderSchema', JSON.parse(schema));
+      schemaObj = JSON.parse(schema);
+      if (this.attrs.postRender) {
+        const postRenderFn = this.attrs.postRender.value;
+        schemaObj["postRender"] = postRenderFn;
+      }
     } else {
-      this.set('renderSchema', schema);
+      schemaObj = schema;
     }
+    this.set('renderSchema', schemaObj);
   }
-
 });
 
 export default DynamicForm;

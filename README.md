@@ -1,4 +1,4 @@
-# Ember-cli-dynamic-forms
+# ember-cli-dynamic-forms
 
 An Ember addon for creating dynamic forms, powered by [alpacajs](http://alpacajs.org).
 
@@ -12,11 +12,13 @@ It's advisable to run `ember g ember-cli-dynamic-forms` between upgrades as depe
 
 ## Usage
 
-```javascript
-{{dynamic-forms schema=schema}}
+```hbs
+{{dynamic-forms schema=schema postRender=postRenderFn}}
 ```
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition.
+
+The postRender attribute is optional and provided primarily for cases where your schema is being passed as a string.
 
 ## Roadmap
 
@@ -24,11 +26,11 @@ The schema variable can be in string or object form, but needs to be a valid jso
 
 Basically wrap alpaca with an Ember component.
 
-### Phase 2: Provide Convention Hooks for Reusable Form Assets
+### Phase 2: Provide Convention Hooks for Reusable Form Assets (TBD)
 
 Provide the ability to provide reusable assets to form definitions, such as validations, formatting, interactions, etc.  Leverage Ember's mechanisms for file resolution to load these assets.
 
-### Phase 3: Provide Ember Data Hooks for Flexible Schema Options
+### Phase 3: Provide Ember Data Hooks for Flexible Schema Options (TBD)
 
 Use ember data to provide an extensible way to load form configuration.  Provide the ability to pass a model object to the dynamic forms component.
 

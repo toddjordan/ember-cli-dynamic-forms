@@ -2,6 +2,9 @@
 
 module.exports = function(environment) {
   var ENV = {
+    contentSecurityPolicy: {
+        'script-src': "'self' 'unsafe-inline'"
+    },
     modulePrefix: 'dummy',
     environment: environment,
     baseURL: '/',
