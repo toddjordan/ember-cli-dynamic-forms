@@ -11,12 +11,19 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toddjordan/ember-cli-dynamic-forms.git"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Todd Jordan <todd.jordan@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toddjordan/ember-cli-dynamic-forms/issues"
+  },
+  "homepage": "https://github.com/toddjordan/ember-cli-dynamic-forms",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
     "ember-cli": "1.13.13",
@@ -38,7 +45,11 @@
     "ember-try": "~0.0.8"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember",
+    "alpaca",
+    "forms",
+    "dynamic-forms",
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5"
