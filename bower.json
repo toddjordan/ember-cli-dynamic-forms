@@ -12,6 +12,7 @@
     "jquery": ">=1.11.3",
     "loader.js": "ember-cli/loader.js#3.4.0",
     "qunit": "~1.20.0",
-    "alpaca": "1.5.14"
+    "alpaca": "1.5.14",
+    "lodash": "~3.10.1"
   }
 }

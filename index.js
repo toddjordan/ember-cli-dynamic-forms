@@ -10,6 +10,7 @@ module.exports = {
     app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.js');
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
+    app.import(app.bowerDirectory + '/lodash/lodash.js');
   },
   isDevelopingAddon: function () {
     return true;

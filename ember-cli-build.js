@@ -12,7 +12,9 @@ module.exports = function(defaults) {
     addon, located in `/tests/dummy`
     This build file does *not* influence how the addon or the app using it
     behave. You most likely want to be modifying `./index.js` or app's build file
-  */
+   */
+  app.import('bower_components/lodash/lodash.js');
+
 
   return app.toTree();
 };
