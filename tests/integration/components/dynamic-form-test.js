@@ -120,6 +120,6 @@ test('should replace validator string with corresponding function', function (as
     this.render(hbs`{{dynamic-form schema=validationObject postRender=postRenderFn}}`);
   }).then(() => {
     assert.equal(this.$('.alpaca-message').text().trim(), 'You are too young to drink alcohol!');
-    });
-
+  });
 });
+

@@ -14,7 +14,7 @@ const basicObject = {
         "title": "Ranking",
         "enum": ['excellent', 'not too shabby', 'alpaca built my hotrod']
       }
-    }
+    },
   }
 };
 
@@ -40,7 +40,10 @@ const basicValidation = {
   "options": {
     "fields": {
       "name": {
-        "label": "Name"
+        "label": "Name",
+        "events": {
+          "change": "lower-case"
+        }
       },
       "age": {
         "label": "Age",
@@ -60,11 +63,6 @@ const basicValidation = {
 
 export default Ember.Route.extend({
   model() {
-    return Ember.Object.create({
-      basicObject,
-      basicString,
-      basicValidation
-    });
+    return Ember.Object.create({ basicObject, basicString, basicValidation });
   }
-
 });
