@@ -2,8 +2,12 @@ import Ember from 'ember';
 
 const TYPE_MAP = {
   validator: {
-    namespace: 'forms.validations',
+    namespace:    'forms.validations',
     functionName: 'validate'
+  },
+  change: {
+    namespace:    'forms.formatters',
+    functionName: 'format'
   }
 };
 
