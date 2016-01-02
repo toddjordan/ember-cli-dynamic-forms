@@ -1,3 +1,5 @@
+/* globals _ */
+
 import Ember from 'ember';
 
 const basicObject = {
@@ -14,11 +16,21 @@ const basicObject = {
         "title": "Ranking",
         "enum": ['excellent', 'not too shabby', 'alpaca built my hotrod']
       }
-    },
+    }
   }
 };
 
 const basicString = JSON.stringify(basicObject);
+
+const basicFilterRule = _.clone(basicObject, true);
+
+basicFilterRule["options"] = {
+  "fields": {
+    "name": {
+      "filterrules": [ "admin-only" ]
+    }
+  }
+};
 
 const basicValidation = {
   "schema": {
@@ -63,6 +75,6 @@ const basicValidation = {
 
 export default Ember.Route.extend({
   model() {
-    return Ember.Object.create({ basicObject, basicString, basicValidation });
+    return Ember.Object.create({ basicObject, basicString, basicValidation, basicFilterRule });
   }
 });
