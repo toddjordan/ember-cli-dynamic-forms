@@ -16,12 +16,10 @@ It's advisable to run `ember g ember-cli-dynamic-forms` between upgrades as depe
 ## Usage
 
 ```hbs
-{{dynamic-forms schema=schema postRender=postRenderFn}}
+{{dynamic-forms schema=schema}}
 ```
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition. See the [alpacajs website](http://alpacajs.org) for more information about building valid schemas.
-
-The postRender attribute is optional and provided primarily for cases where your schema is being passed as a string.  You may also set the postRender function on your schema object.
 
 ## Development
 
