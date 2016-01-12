@@ -35,9 +35,9 @@ const DynamicForm = Ember.Component.extend({
     }
     const optionFields = schemaObj.options.fields;
     const newSchema = _.reduce(optionFields, (result, val, key) => {
-      if(val.filterrules) {
-        val.filterrules.forEach((element) => {
-          const filterRule = this.container.lookup(`${element}:forms.filterrules`);
+      if(val['filter-rules']) {
+        val['filter-rules'].forEach((element) => {
+          const filterRule = this.container.lookup(`${element}:forms.filter-rules`);
           filterRule.filter(key, result);
         });
       }

@@ -27,7 +27,7 @@ const basicFilterRule = _.clone(basicObject, true);
 basicFilterRule["options"] = {
   "fields": {
     "name": {
-      "filterrules": [ "admin-only" ]
+      "filter-rules": [ "admin-only" ]
     }
   }
 };

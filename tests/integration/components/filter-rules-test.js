@@ -21,7 +21,7 @@ const basicObject = {
   "options": {
     "fields": {
       "name": {
-        "filterrules": ["admin-only"]
+        "filter-rules": ["admin-only"]
       }
     }
   }
@@ -38,7 +38,7 @@ const filterRule = Ember.Object.extend({
 moduleForComponent('dynamic-form', 'dynamic-form:filter rules', {
   integration: true,
   beforeEach() {
-    this.register('admin-only:forms.filterrules', filterRule);
+    this.register('admin-only:forms.filter-rules', filterRule);
   }
 });
 
