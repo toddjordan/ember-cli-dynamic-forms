@@ -43,7 +43,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.baseURL = '/ember-cli-dynamic-forms';
   }
 
   return ENV;
