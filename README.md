@@ -16,7 +16,7 @@ It's advisable to run `ember g ember-cli-dynamic-forms` between upgrades as depe
 ## Usage
 
 ```hbs
-{{dynamic-forms schema=schema}}
+{{dynamic-form schema=schema}}
 ```
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition. See the [alpacajs website](http://alpacajs.org) for more information about building valid schemas.
