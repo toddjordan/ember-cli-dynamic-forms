@@ -1,5 +1,6 @@
 # ember-cli-dynamic-forms
 
+[![npm version](https://badge.fury.io/js/ember-cli-dynamic-forms.svg)](https://badge.fury.io/js/ember-cli-dynamic-forms)
 [![Build Status](https://travis-ci.org/toddjordan/ember-cli-dynamic-forms.svg?branch=master)](https://travis-ci.org/toddjordan/ember-cli-dynamic-forms)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-cli-dynamic-forms.svg)](http://emberobserver.com/addons/ember-cli-dynamic-forms)
 
