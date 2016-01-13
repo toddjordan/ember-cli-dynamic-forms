@@ -35,7 +35,7 @@ const basicObject = {
   }
 };
 
-moduleForComponent('dynamic-form', 'dynamic-form:validations', {
+moduleForComponent('dynamic-form', 'Integration | Component | dynamic-form:formatters', {
   integration: true,
   beforeEach() {
     this.register('drinking-age:forms.formatters', formatter);

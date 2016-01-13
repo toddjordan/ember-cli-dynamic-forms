@@ -35,7 +35,7 @@ const filterRule = Ember.Object.extend({
 });
 
 
-moduleForComponent('dynamic-form', 'dynamic-form:filter rules', {
+moduleForComponent('dynamic-form', 'Integration | Component | dynamic-form:filter-rules', {
   integration: true,
   beforeEach() {
     this.register('admin-only:forms.filter-rules', filterRule);
