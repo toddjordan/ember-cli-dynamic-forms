@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-9">
+      {{outlet}}
+    </div>
+    <div class="col-xs-3">
+      <div class="list-group">
+        {{#link-to "demos.basic-usage" class="list-group-item"}}Basic Usage{{/link-to}}
+        {{#link-to "demos.validation" class="list-group-item"}}Validation{{/link-to}}
+        {{#link-to "demos.formatting" class="list-group-item"}}Formatting{{/link-to}}
+        {{#link-to "demos.filter-rules" class="list-group-item"}}Filter Fules{{/link-to}}
+      </div>
+    </div>
+  </div>
+</div>
