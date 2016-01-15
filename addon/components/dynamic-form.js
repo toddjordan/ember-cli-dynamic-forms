@@ -53,9 +53,12 @@ const DynamicForm = Ember.Component.extend({
     } else {
       schemaObj = schema;
     }
-    if (this.attrs.postRender) {
-      const postRenderFn = this.attrs.postRender.value;
-      schemaObj["postRender"] = postRenderFn;
+    if (this.get('postRender')) {
+      const postRenderFn = this.get('postRender');
+      schemaObj.postRender = postRenderFn;
+    }
+    if (this.get('data')) {
+      schemaObj.data = this.get('data');
     }
     return schemaObj;
   },
