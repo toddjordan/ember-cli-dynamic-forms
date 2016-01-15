@@ -18,12 +18,10 @@ const basicValidation = {
     }
   },
   "options": {
+    "focus":false,
     "fields": {
       "name": {
-        "label": "Name",
-        "events": {
-          "change": "lower-case"
-        }
+        "label": "Name"
       },
       "age": {
         "label": "Age",

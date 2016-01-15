@@ -1,3 +1,76 @@
-<h4>Validation</h4>
-{{dynamic-form schema=model.basicValidation}}
+<h2>Validation</h2>
+<p>The ember-cli-dynamic-forms addon provides you with a way to define and apply reusable validations to your dynamic forms.  All you have to do is drop a JavaScript file in the <code>/app/forms/validations</code> directory and its made available to your form as a validator, which can be applied to a form field, as it is updated.</p>
+<p>Start by creating a custom validation as <code>/app/forms/validations/drinking-age.js.</code></p>
 
+<pre><code>import Ember from 'ember';
+
+export default Ember.Object.extend({
+
+  validate(callback) {
+    var value = this.getValue();
+    var age = this.getParent().childrenByPropertyId["age"].getValue();
+    if ((value === "beer" || value === "wine") && age &gt; 21) {
+      callback({"status": false, "message": "You are too young to drink alcohol!"});
+      return;
+    }
+  }
+});
+</code></pre>
+
+<p>Adding <code>drinking-age</code> to that directory will make that validation available as "drinking-age" within your form schema under the validator key.</p>
+<p>In the example below we are validating that you are the correct age if you pick beer as your preferred beverage.</p>
+
+<pre><code>import Ember from 'ember';
+
+const basicValidation = {
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "age": {
+        "type": "number",
+        "minimum": 0
+      },
+      "beverage": {
+        "type": "string",
+        "enum": ["water", "soda", "beer", "wine"]
+      }
+    }
+  },
+  "options": {
+    "fields": {
+      "name": {
+        "label": "Name",
+        "events": {
+          "change": "lower-case"
+        }
+      },
+      "age": {
+        "label": "Age",
+        "type": "integer",
+        "slider": true
+      },
+      "beverage": {
+        "label": "Choice of Beverage",
+        "slider": true,
+        "validator": "drinking-age"
+      }
+    }
+  }
+};
+
+export default Ember.Route.extend({
+  model() {
+    return Ember.Object.create({ basicValidation });
+  }
+});
+</code></pre>
+
+<p>We use our dynamic-form component as we normally would, passing in the schema object.</p>
+<pre><code>\{{dynamic-form schema=model.basicValidation}}</code></pre>
+
+<h3>Demo</h3>
+
+{{dynamic-form schema=model.basicValidation}}

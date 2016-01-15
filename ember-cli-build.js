@@ -14,7 +14,10 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
    */
   app.import('bower_components/lodash/lodash.js');
-
-
+  app.import('bower_components/bootstrap/dist/css/bootstrap.min.css');
+  app.import('bower_components/bootstrap/dist/css/bootstrap-theme.min.css');
+  app.import('bower_components/bootstrap/dist/js/bootstrap.min.js');
+  app.import('vendor/highlight/styles/zenburn.css');
+  app.import('vendor/highlight/highlight.pack.js');
   return app.toTree();
 };
