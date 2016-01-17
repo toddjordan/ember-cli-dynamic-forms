@@ -22,7 +22,8 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "_"
+    "_",
+    "hljs"
   ],
   "node": false,
   "browser": false,

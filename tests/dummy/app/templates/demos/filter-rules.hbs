@@ -1,2 +1,42 @@
-<h4>With Filter Rule</h4>
+<h2>Filter Rules</h2>
+<p>Filter rules are objects that pre-process the schema prior to render.  They are used to modify the form based on runtime context, such as modifying form visibility or enabled state based on a logged in user's permissions.</p>
+<p>We'll show an example where we will use a filter rule to disable the name field, as it would having checked a user's permissions.</p>
+<p>To create a filter rule, we'll save our filter rule JavaScript file as <code>/app/forms/filter-rules/admin-only.js</code>. Filter rules may be placed in the schema on a field with a key of "filter-rule". The filter function is passed the field ID its defined under and a reference to the schema object.</p>
+
+{{#highlight-js}}
+<pre><code>import Ember from 'ember';
+
+export default Ember.Object.extend({
+  filter(key, schemaObj) {
+    const fieldOption = schemaObj.options.fields[key];
+    //could disable based on whether the user has admin role (user info loaded via service)
+    fieldOption.disabled = true;
+  }
+});</code></pre>
+{{/highlight-js}}
+
+{{#highlight-js}}
+  <pre><code>import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model() {
+    const basicUsageModel = this.modelFor('demos');
+    const basicFilterRule = _.clone(basicUsageModel, true);
+    basicFilterRule["options"] = {
+      "fields": {
+        "name": {
+          "filter-rules": [ "admin-only" ]
+        }
+      }
+    };
+
+    return Ember.Object.create({ basicFilterRule });
+  }
+});</code></pre>
+{{/highlight-js}}
+
+{{#highlight-js}}<pre><code>\{{dynamic-form schema=model.basicFilterRule}}</code></pre>{{/highlight-js}}
+
+<h3>Demo</h3>
 {{dynamic-form schema=model.basicFilterRule}}

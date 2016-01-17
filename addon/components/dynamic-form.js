@@ -11,9 +11,6 @@ const TYPE_MAP = {
   }
 };
 
-
-
-
 const DynamicForm = Ember.Component.extend({
 
   renderSchema: Ember.K,
@@ -51,7 +48,7 @@ const DynamicForm = Ember.Component.extend({
     if (typeof schema === 'string') {
       schemaObj = JSON.parse(schema);
     } else {
-      schemaObj = schema;
+      schemaObj = _.clone(schema, true);
     }
     if (this.get('postRender')) {
       const postRenderFn = this.get('postRender');

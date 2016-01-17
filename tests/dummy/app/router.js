@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('formatting');
     this.route('filter-rules');
     this.route('basic-usage');
+    this.route('data');
   });
 });
 
