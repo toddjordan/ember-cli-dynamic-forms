@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 const TYPE_MAP = {
   validator: {
-    namespace:    'forms.validations',
+    namespace:    'dynamic-forms.validations',
     functionName: 'validate'
   },
   change: {
-    namespace:    'forms.formatters',
+    namespace:    'dynamic-forms.formatters',
     functionName: 'format'
   }
 };
@@ -34,7 +34,7 @@ const DynamicForm = Ember.Component.extend({
     const newSchema = _.reduce(optionFields, (result, val, key) => {
       if(val['filter-rules']) {
         val['filter-rules'].forEach((element) => {
-          const filterRule = this.container.lookup(`${element}:forms.filter-rules`);
+          const filterRule = this.container.lookup(`${element}:dynamic-forms.filter-rules`);
           filterRule.filter(key, result);
         });
       }

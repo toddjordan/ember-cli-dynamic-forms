@@ -38,7 +38,7 @@ const basicObject = {
 moduleForComponent('dynamic-form', 'Integration | Component | dynamic-form:formatters', {
   integration: true,
   beforeEach() {
-    this.register('drinking-age:forms.formatters', formatter);
+    this.register('drinking-age:dynamic-forms.formatters', formatter);
   }
 });
 
