@@ -1,0 +1,103 @@
+<h2>Form Actions</h2>
+
+<p>In cases where you want to specify action buttons in your form schema, `ember-cli-dynamic-forms` provides a way to pass action function to the component to handle them.</p>
+
+<p>In alpacajs, you can provide buttons to be rendered along with your form.  These buttons specifictions take functions to handle what happens when they are clicked.  As an alternative to adding functions directly to you form json schema, with `ember-cli-dynamic-forms` you may also pass in actions functions as a component arguments.</p>
+
+<p>Take the following example with 3 separate buttons:</p>
+
+{{#highlight-js}}
+  <pre><code>import Ember from 'ember';
+
+const schemaObject = {
+    "schema": {
+        "title": "Your Information",
+        "type": "object",
+        "properties": {
+            "firstName": {
+                "title": "First Name",
+                "type": "string"
+            },
+            "lastName": {
+                "title": "Last Name",
+                "type": "string"
+            },
+            "age": {
+                "title": "Age",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+            }
+        }
+    },
+    "options": {
+        "focus":false,
+        "form": {
+            "attributes": {
+                "action": "http://httpbin.org/post",
+                "method": "post"
+            },
+            "buttons": {
+                "noop": {
+                    "type": "button",
+                    "value": "Do Nothing",
+                    "styles": "btn btn-primary"
+                },
+                "validate": {
+                    "title": "Validate and view JSON!"
+                },
+                "submit": {
+                    "id": "mySubmit",
+                    "attributes": {
+                        "data-test": "123"
+                    }
+                }
+            }
+        }
+    }
+};
+
+export default Ember.Route.extend({
+  model() {
+    return basicObject;
+  }
+});
+  </code></pre>
+{{/highlight-js}}
+
+<p>This code should generate a form with 3 buttons that don't do anything, since we haven't provided any action functions.</p>
+<p>Lets now add code that does this, by creating the following object in our route, returning it with the model, and passing it to the component</p>
+
+{{#highlight-js}}
+  <pre><code>
+model() {
+    const formActions = {
+      noop: function () {
+        alert("Ain't gonna do it");
+      },
+      submit: function () {
+        this.ajaxSubmit().always(function() {
+          alert("Form submitted!");
+        });
+      },
+      validate: function () {
+        this.refreshValidationState(true);
+        if (this.isValid(true)) {
+          var value = this.getValue();
+          alert(JSON.stringify(value, null, "  "));
+        }
+      }
+    };
+    return { formActionSchema, formActions };
+}
+  </code></pre>
+{{/highlight-js}}
+
+{{#highlight-js}}
+  <pre><code>\{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}</code></pre>
+{{/highlight-js}}
+
+<p>Notice above that the key items in the formActions object match up the the keys for the buttons in the schema.  Now, when you click the buttons on the form, they do something.</p>
+
+<h3>Demo</h3>
+{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}
