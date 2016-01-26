@@ -51,18 +51,18 @@ export default Ember.Route.extend({
     };
     const formActions = {
       noop: function () {
-        alert("Ain't gonna do it");
+        window.alert("Ain't gonna do it");
       },
       submit: function () {
         this.ajaxSubmit().always(function() {
-          alert("Form submitted!");
+          window.alert("Form submitted!");
         });
       },
       validate: function () {
         this.refreshValidationState(true);
         if (this.isValid(true)) {
           var value = this.getValue();
-          alert(JSON.stringify(value, null, "  "));
+          window.alert(JSON.stringify(value, null, "  "));
         }
       }
     };
