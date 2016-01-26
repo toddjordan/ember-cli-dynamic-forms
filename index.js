@@ -13,6 +13,6 @@ module.exports = {
     app.import(app.bowerDirectory + '/lodash/lodash.js');
   },
   isDevelopingAddon: function () {
-    return true;
+    return false;
   }
 };
