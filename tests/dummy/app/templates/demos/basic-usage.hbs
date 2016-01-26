@@ -13,7 +13,7 @@
 <p>For tips on creating alpacajs forms, read their <a href="http://www.alpacajs.org/documentation.html">documentaion</a>, <a href="http://www.alpacajs.org/tutorial.html">tutorial</a>, and <a href="http://www.alpacajs.org/examples.html">examples</a>.</p>
 
 {{#highlight-js}}
-<pre><code>import Ember from 'ember';
+<pre>/app/routes/demos/basic-usage.js<code>import Ember from 'ember';
 
 const basicObject = {
   "schema": {
@@ -70,6 +70,6 @@ export default Ember.Route.extend({
 <p>Once the object is made available, you can use it within your template to render the form.</p>
 
 {{#highlight-js}}
-<pre><code>\{{dynamic-form schema=model.basicObject}}</code></pre>
+<pre>/app/templates/demos/basic-usage.hbs<code>\{{dynamic-form schema=model.basicObject}}</code></pre>
 {{/highlight-js}}
 
