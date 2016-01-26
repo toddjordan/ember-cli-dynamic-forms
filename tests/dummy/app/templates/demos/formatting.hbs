@@ -1,11 +1,17 @@
 <h2>Formatting</h2>
+
+<p>This form uses a formatter to change the first letter of each word in name to upper case</p>
+{{dynamic-form schema=model.basicFormatting}}
+
+<hr/>
+
 <p>The  ember-cli-dynamic-forms addon allows you to provide reusable formatting logic.  Formatting logic is code that runs on a
   field when it changes, such as phone number or monetary formatting. </p>
 <p>Formatters are defined in <code>/app/forms/formatters</code> and is made available to the form as a change event.</p>
 <p>For an example, lets create a formatter that ensures the first letter of you name is capitalized.  We'll start by creating an formatter in <code>/app/forms/formatters/proper-name.js</code></p>
 
 {{#highlight-js}}
-<pre><code>import Ember from 'ember';
+<pre>/app/forms/formatters/proper-name.js<code>import Ember from 'ember';
 
 export default Ember.Object.extend({
   format() {
@@ -20,8 +26,7 @@ export default Ember.Object.extend({
 
 If you add a formatter to a field's change even option, the function will run when you change that field.  We will add the formatter to the name field below.
 
-{{#highlight-js}}<pre><code>import Ember from 'ember';
-
+{{#highlight-js}}<pre>/app/routes/demos/formatters.js<code>import Ember from 'ember';
 const basicFormatting = {
   "schema": {
     "type": "object",
@@ -71,9 +76,6 @@ export default Ember.Route.extend({
 
 Using formatters requires no change to the component definition.
 {{#highlight-js}}
-  <pre><code>\{{dynamic-form schema=model.basicFormatting}}</code></pre>
+  <pre>/app/templates/demos/formatting.hbs<code>\{{dynamic-form schema=model.basicFormatting}}</code></pre>
 {{/highlight-js}}
-
-<h3>Demo</h3>
-{{dynamic-form schema=model.basicFormatting}}
 

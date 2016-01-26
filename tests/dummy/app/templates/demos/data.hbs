@@ -1,9 +1,15 @@
 <h2>Data</h2>
+
+<p>This form has data pre-filled in its fields, provided apart from its schema.</p>
+{{dynamic-form schema=model.basicModel data=model.data}}
+
+<hr/>
+
 <p>The dynamic-form component also takes a data parameter to populate fields. The component will attept to populate any field that has a matching key in the data object.</p>
 <p>Below we will take our basic schema and add a data object to populate fields.</p>
 
 {{#highlight-js}}
-  <pre><code>import Ember from 'ember';
+  <pre>/app/routes/demos/data.js<code>import Ember from 'ember';
 const basicSchema = {
   "schema": {
     "title":"User Feedback",
@@ -49,7 +55,6 @@ const basicSchema = {
   }
 };
 
-
 export default Ember.Route.extend({
   model() {
     const data = Ember.Object.create({
@@ -65,7 +70,5 @@ export default Ember.Route.extend({
 });</code></pre>
 {{/highlight-js}}
 
-{{#highlight-js}}<pre><code>\{{dynamic-form schema=model.basicSchema data=model.data}}</code></pre>{{/highlight-js}}
+{{#highlight-js}}<pre>/app/templates/demos/data.hbs<code>\{{dynamic-form schema=model.basicSchema data=model.data}}</code></pre>{{/highlight-js}}
 
-<h3>Demo</h3>
-{{dynamic-form schema=model.basicModel data=model.data}}

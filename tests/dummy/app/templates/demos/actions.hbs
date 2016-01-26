@@ -1,5 +1,10 @@
 <h2>Form Actions</h2>
 
+<p>This form includes submit buttons, whose handlers are passed into the component apart from the schema.</p>
+{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}
+
+<hr/>
+
 <p>In cases where you want to specify action buttons in your form schema, `ember-cli-dynamic-forms` provides a way to pass action function to the component to handle them.</p>
 
 <p>In alpacajs, you can provide buttons to be rendered along with your form.  These buttons specifictions take functions to handle what happens when they are clicked.  As an alternative to adding functions directly to you form json schema, with `ember-cli-dynamic-forms` you may also pass in actions functions as a component arguments.</p>
@@ -7,7 +12,7 @@
 <p>Take the following example with 3 separate buttons:</p>
 
 {{#highlight-js}}
-  <pre><code>import Ember from 'ember';
+  <pre>/app/routes/demos/actions.js<code>import Ember from 'ember';
 
 const schemaObject = {
     "schema": {
@@ -69,7 +74,7 @@ export default Ember.Route.extend({
 <p>Lets now add code that does this, by creating the following object in our route, returning it with the model, and passing it to the component</p>
 
 {{#highlight-js}}
-  <pre><code>
+  <pre>/app/routes/demos/actions.js<code>
 model() {
     const formActions = {
       noop: function () {
@@ -88,16 +93,14 @@ model() {
         }
       }
     };
+
     return { formActionSchema, formActions };
 }
   </code></pre>
 {{/highlight-js}}
 
 {{#highlight-js}}
-  <pre><code>\{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}</code></pre>
+  <pre>/app/templates/demos.actions.hbs<code>\{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}</code></pre>
 {{/highlight-js}}
 
 <p>Notice above that the key items in the formActions object match up the the keys for the buttons in the schema.  Now, when you click the buttons on the form, they do something.</p>
-
-<h3>Demo</h3>
-{{dynamic-form schema=model.formActionSchema formActions=model.formActions }}
