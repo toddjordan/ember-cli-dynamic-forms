@@ -15,10 +15,24 @@ An Ember addon for creating dynamic forms, powered by [alpacajs](http://alpacajs
 It's advisable to run `ember g ember-cli-dynamic-forms` between upgrades as dependencies may have been added, removed, or upgraded between releases. Please try this, along with clearing node_modules and bower_components before reporting issues after upgrading.
 
 ## Usage
+Using ember-cli-dynamic-forms can be as simple as passing a json-schema compliant object into a component.  You can also provide the form with data and actions, either in the schema or with separate objects:
 
 ```hbs
-{{dynamic-form schema=schema}}
+{{dynamic-form schema=model.schemaObj data=model.dataObj formActions=formActionsObj}}
 ```
+
+You can also create reusable form assets using ember-cli, such as validations and formatting rules: 
+`ember generate dynamic-form-validator drinking-age`
+
+And you can reference them in your schema:
+```
+     "beverage": {
+        "label": "Choice of Beverage",
+        "slider": true,
+        "validator": "drinking-age"
+      }
+```      
+For more details component usage and asset generation, see the [ember-cli-dynamic-forms documentation site](http://toddjordan.github.io/ember-cli-dynamic-forms/#/demos/basic-usage).
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition. See the [alpacajs website](http://alpacajs.org) for more information about building valid schemas.
 
