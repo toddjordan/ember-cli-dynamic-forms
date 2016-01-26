@@ -21,9 +21,19 @@ const DynamicForm = Ember.Component.extend({
 
   didReceiveAttrs() {
     let schemaObj = this._initSchema(this.get('schema'));
-    const filteredSchema = this._processFilters(schemaObj);
+    const schemaWithActions = this._addActions(schemaObj);
+    const filteredSchema = this._processFilters(schemaWithActions);
     const mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
     this.set('renderSchema', mappedSchema);
+  },
+
+  _addActions(schemaObj) {
+    return _.reduce(this.get('formActions'), (result, value, key) => {
+      if ((((((result || {}).options || {}).form || {}).buttons || {})[key])) {
+        result.options.form.buttons[key].click = value;
+      }
+      return result;
+    }, schemaObj);
   },
 
   _processFilters(schemaObj) {

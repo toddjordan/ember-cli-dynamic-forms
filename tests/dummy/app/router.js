@@ -12,7 +12,10 @@ Router.map(function() {
     this.route('filter-rules');
     this.route('basic-usage');
     this.route('data');
+    this.route('actions');
   });
+
+  this.route('demo', function() {});
 });
 
 export default Router;

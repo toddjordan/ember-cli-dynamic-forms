@@ -1,5 +1,11 @@
 <h2>Basic Usage</h2>
 
+<p>This form is generated using json schema passed to an ember component.</p>
+
+{{dynamic-form schema=model.basicObject}}
+
+<hr/>
+
 <p>ember-cli-dynamic-forms are powered by <a href="http://alpacajs.org">alpacajs</a>, an open source dynamic form library for jquery.</p>
 
 <p>To get started with ember-cli-dynamic-forms, all you need is a <a href="http://json-schema.org/">json-schema</a> compliant object for alpacajs to describe your form.  Below we make this object available as the model within a route.</p>
@@ -67,6 +73,3 @@ export default Ember.Route.extend({
 <pre><code>\{{dynamic-form schema=model.basicObject}}</code></pre>
 {{/highlight-js}}
 
-<h3>Demo</h3>
-
-{{dynamic-form schema=model.basicObject}}

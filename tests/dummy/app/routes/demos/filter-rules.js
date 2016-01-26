@@ -12,6 +12,9 @@ export default Ember.Route.extend({
         }
       }
     };
-    return Ember.Object.create({ basicFilterRule });
+    const data = Ember.Object.create({
+      name: "Todd Jordan"
+    });
+    return Ember.Object.create({ basicFilterRule, data });
   }
 });

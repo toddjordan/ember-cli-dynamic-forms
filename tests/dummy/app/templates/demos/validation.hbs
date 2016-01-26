@@ -1,4 +1,10 @@
 <h2>Validation</h2>
+
+<p>This form uses a validator to ensure the age of the person allows them to choose beer as a beverage.</p>
+{{dynamic-form schema=model.basicValidation}}
+
+<hr/>
+
 <p>The ember-cli-dynamic-forms addon provides you with a way to define and apply reusable validations to your dynamic forms.  All you have to do is drop a JavaScript file in the <code>/app/forms/validations</code> directory and its made available to your form as a validator, which can be applied to a form field, as it is updated.</p>
 <p>Start by creating a custom validation using the ember-cli validation blueprint generate command:</p>
 
@@ -7,7 +13,7 @@
 <p>Now, validate that the age provided is appropriate when beer is selected:</p>
 
 {{#highlight-js}}
-<pre><code>import Ember from 'ember';
+<pre>/app/forms/validations/drinking-age.js<code>import Ember from 'ember';
 
 export default Ember.Object.extend({
 
@@ -27,7 +33,7 @@ export default Ember.Object.extend({
 <p>In the example below we are validating that you are the correct age if you pick beer as your preferred beverage.</p>
 
 {{#highlight-js}}
-<pre><code>import Ember from 'ember';
+<pre>/app/routes/demos/validation.js<code>import Ember from 'ember';
 
 const basicValidation = {
   "schema": {
@@ -79,9 +85,5 @@ export default Ember.Route.extend({
 <p>We use our dynamic-form component as we normally would, passing in the schema object.</p>
 
 {{#highlight-js}}
-  <pre><code>\{{dynamic-form schema=model.basicValidation}}</code></pre>
+  <pre>/app/templates/demos/validation.hbs<code>\{{dynamic-form schema=model.basicValidation}}</code></pre>
 {{/highlight-js}}
-
-<h3>Demo</h3>
-
-{{dynamic-form schema=model.basicValidation}}
