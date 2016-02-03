@@ -8,7 +8,7 @@ module.exports = {
       { name: 'jquery', target: '>=1.11.3' },
       { name: 'alpaca', target: '1.5.14' },
       { name: 'handlebars', target: '3.0.3' },
-      { name: 'bootstrap', target: '>=3.3.6' },
+      { name: 'bootstrap', target: '3.3.2' },
       { name: 'lodash', target: '~3.10.1' }
     ]);
   }
