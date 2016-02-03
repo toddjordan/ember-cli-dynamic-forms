@@ -8,10 +8,13 @@ module.exports = {
     app.import(app.bowerDirectory + '/handlebars/handlebars.js');
     app.import(app.bowerDirectory + '/bootstrap/dist/js/bootstrap.js');
     app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
-    app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff');
+    app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
+      destDir: 'fonts'
+    });
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.js');
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
     app.import(app.bowerDirectory + '/lodash/lodash.js');
+
 
   },
   isDevelopingAddon: function () {
