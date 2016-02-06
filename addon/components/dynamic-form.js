@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import getOwner from 'ember-getowner-polyfill';
 
 const TYPE_MAP = {
   validator: {
@@ -44,7 +45,7 @@ const DynamicForm = Ember.Component.extend({
     const newSchema = _.reduce(optionFields, (result, val, key) => {
       if(val['filter-rules']) {
         val['filter-rules'].forEach((element) => {
-          const filterRule = this.container.lookup(`${element}:dynamic-forms.filter-rules`);
+          const filterRule = getOwner(this).lookup(`${element}:dynamic-forms.filter-rules`);
           filterRule.filter(key, result);
         });
       }
@@ -71,11 +72,11 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _replaceKeywordsWithFunctions(schemaObj) {
-    const container = this.container;
+    const container = getOwner(this);
     const replaceWithFunction = function (object, value, key) {
       if (TYPE_MAP.hasOwnProperty(key) && typeof value === 'string') {
         const type = TYPE_MAP[key];
-        const typeObj = container.lookup(`${value}:${type.namespace}`);
+        const typeObj = getOwner(this).lookup(`${value}:${type.namespace}`);
         if (typeObj) {
           object[key] = typeObj[type.functionName];
         } // else fail with a message that the given type couldn't be found
