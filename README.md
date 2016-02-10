@@ -10,6 +10,8 @@ An Ember addon for creating dynamic forms, powered by [alpacajs](http://alpacajs
 
 `ember install ember-cli-dynamic-forms`
 
+For now, you'll get a jquery resolution prompt when running install.  You'll want to pick the 1.11.3 option.
+
 ## Upgrading
 
 It's advisable to run `ember g ember-cli-dynamic-forms` between upgrades as dependencies may have been added, removed, or upgraded between releases. Please try this, along with clearing node_modules and bower_components before reporting issues after upgrading.
