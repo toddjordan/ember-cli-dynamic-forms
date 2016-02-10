@@ -76,7 +76,7 @@ const DynamicForm = Ember.Component.extend({
     const replaceWithFunction = function (object, value, key) {
       if (TYPE_MAP.hasOwnProperty(key) && typeof value === 'string') {
         const type = TYPE_MAP[key];
-        const typeObj = getOwner(this).lookup(`${value}:${type.namespace}`);
+        const typeObj = container.lookup(`${value}:${type.namespace}`);
         if (typeObj) {
           object[key] = typeObj[type.functionName];
         } // else fail with a message that the given type couldn't be found
