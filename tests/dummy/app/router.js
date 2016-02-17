@@ -13,6 +13,7 @@ Router.map(function() {
     this.route('basic-usage');
     this.route('data');
     this.route('actions');
+    this.route('change-action');
   });
 
   this.route('demo', function() {});

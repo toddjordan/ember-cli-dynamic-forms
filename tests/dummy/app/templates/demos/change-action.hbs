@@ -1,0 +1,97 @@
+<h2>Change Actions</h2>
+
+<p>This form has a closure action that will update the text below as the form is updated</p>
+
+{{dynamic-form schema=model.schema data=model.data changeAction=(action "updateOnChange") }}
+
+<h4>Model Values</h4>
+
+<ul>
+  <li>name: {{model.data.name}}</li>
+  <li>feedback: {{model.data.feedback}}</li>
+  <li>ranking: {{model.data.ranking}}</li>
+</ul>
+
+<hr/>
+
+<p>The dynamic-form component supports the data down actions up (DDAU) pattern by taking an action that will be executed whenever a rendered form field changes.</p>
+
+<p>In the example our controller defines a closure action that will receive events from our dynamic form component, pull out the field name and value, and then send an action to the server.</p>
+
+{{#highlight-js}}
+  <pre>/app/controller/demos/change-action.js<code>
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  actions: {
+    updateOnChange(event) {
+      const propertyName = event.target.name;
+      const value = event.target.value;
+      this.send('updateModel', propertyName, value);
+    }
+  }
+});
+  </code></pre>
+{{/highlight-js}}
+
+<p>The route sets up a dynamic form schema as well as data to prepopulate it with.  It also uses the update action to update the data model.</p>
+
+{{#highlight-js}}
+  <pre>/app/routes/demos/change-action.js<code>
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+  data:  Ember.Object.create({
+  name: 'Todd Jordan',
+  feedback: 'Ember + Alpaca = Awesome',
+    ranking: 'excellent'
+  }),
+
+  actions: {
+    updateModel(propertyName, value) {
+      Ember.Logger.debug('changed', propertyName, value);
+      this.set(`data.${propertyName}`, value);
+    }
+  },
+
+  model() {
+    const schema = {
+      "schema": {
+        "title":"User Feedback",
+        "description":"What do you think about Alpaca?",
+        "type":"object",
+        "properties": {
+          "name": {
+            "type":"string",
+            "title":"Name"
+          },
+          "feedback": {
+            "type":"string",
+            "title":"Feedback"
+          },
+          "ranking": {
+            "type":"string",
+            "title":"Ranking",
+            "enum":['excellent','ok','so so']
+          }
+        }
+      }
+    };
+
+    return {
+      schema,
+      data: this.get('data')
+    };
+  }
+});
+</code></pre>
+{{/highlight-js}}
+
+<p>Finally, the template defines a dynamic-form with a closure action that will provide the controller action.</p>
+
+{{#highlight-js}}
+  <pre>/app/templates/demos/change-action.hbs<code>\{{dynamic-form schema=model.schema
+    data=model.data
+    changeAction=(action "updateOnChange")}}
+</code></pre>
+{{/highlight-js}}
