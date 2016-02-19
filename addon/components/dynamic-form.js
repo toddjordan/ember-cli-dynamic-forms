@@ -17,12 +17,15 @@ const DynamicForm = Ember.Component.extend({
   renderSchema: Ember.K,
 
   didInsertElement() {
+    this._super(...arguments);
     this.$().alpaca(this.get('renderSchema'));
   },
 
   didReceiveAttrs() {
+    this._super(...arguments);
     let schemaObj = this._initSchema(this.get('schema'));
-    const schemaWithPostRender = this._buildPostRender(schemaObj);
+    const schemaWithData = this._processData(schemaObj);
+    const schemaWithPostRender = this._buildPostRender(schemaWithData);
     const schemaWithActions = this._addActions(schemaWithPostRender);
     const filteredSchema = this._processFilters(schemaWithActions);
     const mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
@@ -88,6 +91,20 @@ const DynamicForm = Ember.Component.extend({
     return newSchema;
   },
 
+  _processData(schemaObj) {
+    if (this.get('data') && Ember.typeOf(this.get('data')) === 'object') {
+      schemaObj.data = this.get('data');
+    } else if (this.get('data') && Ember.typeOf(this.get('data')) === 'instance') {
+      let keys = Object.keys(schemaObj.schema.properties);
+      let dataObj = _.reduce(keys, (data, key) => {
+        data[key] = this.get('data').get(key);
+        return data;
+      }, {});
+      schemaObj.data = dataObj;
+    }
+    return schemaObj;
+  },
+
   _initSchema(schema) {
     let schemaObj;
     if (typeof schema === 'string') {
@@ -95,9 +112,7 @@ const DynamicForm = Ember.Component.extend({
     } else {
       schemaObj = _.clone(schema, true);
     }
-    if (this.get('data')) {
-      schemaObj.data = this.get('data');
-    }
+
     return schemaObj;
   },
 
