@@ -1,15 +1,24 @@
 <h2>Data</h2>
 
-<p>This form has data pre-filled in its fields, provided apart from its schema.</p>
+<p>This form has data pre-filled in its fields, provided apart from its schema.
+The component will take both ember objects and plain JavaScript objects as arguments.</p>
 {{dynamic-form schema=model.basicModel data=model.data}}
 
 <hr/>
 
-<p>The dynamic-form component also takes a data parameter to populate fields. The component will attept to populate any field that has a matching key in the data object.</p>
-<p>Below we will take our basic schema and add a data object to populate fields.</p>
+<p>The dynamic-form component also takes a data parameter to populate fields.
+It will populate any field that has a matching key in the data object.</p>
+<p>In the form example above we pass in an ember object called Feedback with a computed property as our data argument.</p>
 
 {{#highlight-js}}
   <pre>/app/routes/demos/data.js<code>import Ember from 'ember';
+
+const Feedback = Ember.Object.extend({
+  name: Ember.computed('firstName', 'lastName', function () {
+    return `${this.get('firstName')} ${this.get('lastName')}`;
+  })
+});
+
 const basicSchema = {
   "schema": {
     "title":"User Feedback",
@@ -56,12 +65,15 @@ const basicSchema = {
 };
 
 export default Ember.Route.extend({
+
   model() {
-    const data = Ember.Object.create({
-      name: 'Todd Jordan',
+    const data = Feedback.create({
+      firstName: 'Todd',
+      lastName: 'Jordan',
       feedback: 'Ember + Alpaca = Awesome',
       ranking: 'excellent'
     });
+
     return {
       basicSchema,
       data
@@ -70,5 +82,7 @@ export default Ember.Route.extend({
 });</code></pre>
 {{/highlight-js}}
 
-{{#highlight-js}}<pre>/app/templates/demos/data.hbs<code>\{{dynamic-form schema=model.basicSchema data=model.data}}</code></pre>{{/highlight-js}}
+{{#highlight-js}}<pre>/app/templates/demos/data.hbs<code>
+\{{dynamic-form schema=model.basicSchema data=model.data}}
+</code></pre>{{/highlight-js}}
 
