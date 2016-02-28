@@ -11,6 +11,19 @@ module.exports = {
     app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', {
       destDir: 'fonts'
     });
+    app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot', {
+      destDir: 'fonts'
+    });
+    app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg', {
+      destDir: 'fonts'
+    });
+    app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf', {
+      destDir: 'fonts'
+    });
+    app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', {
+      destDir: 'fonts'
+    });
+
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.js');
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
     app.import(app.bowerDirectory + '/lodash/lodash.js');
