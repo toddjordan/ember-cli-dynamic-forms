@@ -2,13 +2,10 @@
 
 module.exports = function(environment) {
   var ENV = {
-    contentSecurityPolicy: {
-        'script-src': "'self' 'unsafe-inline'"
-    },
     modulePrefix: 'dummy',
     environment: environment,
     baseURL: '/',
-    locationType: 'hash',
+    locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -43,7 +40,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.baseURL = '/ember-cli-dynamic-forms';
+
   }
 
   return ENV;
