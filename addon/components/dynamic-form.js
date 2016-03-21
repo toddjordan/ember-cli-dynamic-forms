@@ -18,17 +18,25 @@ const DynamicForm = Ember.Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    this.$().alpaca(this.get('renderSchema'));
+    let container = getOwner(this);
+    let renderer;
+    let config = container.resolveRegistration('config:environment');
+    if (config.dynamicForms && config.dynamicForms.renderer) {
+      renderer = container.lookup(`${config.dynamicForms.renderer}:renderers`);
+    } else {
+      renderer = container.lookup('alpaca:renderers');
+    }
+    renderer.render(this.get('renderSchema'), this.$());
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
     let schemaObj = this._initSchema(this.get('schema'));
-    const schemaWithData = this._processData(schemaObj);
-    const schemaWithPostRender = this._buildPostRender(schemaWithData);
-    const schemaWithActions = this._addActions(schemaWithPostRender);
-    const filteredSchema = this._processFilters(schemaWithActions);
-    const mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
+    let schemaWithData = this._processData(schemaObj);
+    let schemaWithPostRender = this._buildPostRender(schemaWithData);
+    let schemaWithActions = this._addActions(schemaWithPostRender);
+    let filteredSchema = this._processFilters(schemaWithActions);
+    let mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
     this.set('renderSchema', mappedSchema);
   },
 
