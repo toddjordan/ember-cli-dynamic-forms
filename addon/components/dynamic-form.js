@@ -31,7 +31,7 @@ const DynamicForm = Ember.Component.extend({
     get(this, 'formRenderer').initLayout(this);
   },
 
-  _render() {
+  __render() {
     Ember.Logger.debug('_render');
     let renderer = get(this, 'formRenderer');
     renderer.render(get(this, 'renderSchema'), this);
