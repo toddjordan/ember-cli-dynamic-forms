@@ -34,7 +34,7 @@ And you can reference them in your schema:
         "validator": "drinking-age"
       }
 ```      
-For more details component usage and asset generation, see the [ember-cli-dynamic-forms documentation site](http://toddjordan.github.io/ember-cli-dynamic-forms/#/demos/basic-usage).
+For more details component usage and asset generation, see the [ember-cli-dynamic-forms documentation site](http://toddjordan.github.io/ember-cli-dynamic-forms/).
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition. See the [alpacajs website](http://alpacajs.org) for more information about building valid schemas.
 
