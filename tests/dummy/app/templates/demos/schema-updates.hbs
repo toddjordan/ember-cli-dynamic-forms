@@ -1,0 +1,66 @@
+<h2> Dynamic Schema and Data Updates </h2>
+<p> Changes in the schema or data passed down into the dynamic-form component will cause the component to re-render. </p>
+
+<div class="form col-md-6">
+    <div class="form-group">
+        <label>Schema Title:</label>
+        {{input value=_schemaTitle type="text" class="form-control" placeholder=schemaTitle}}
+    </div>
+    <div class="form-group">
+        <button {{action 'setTitle'}} class="btn {{unless _schemaTitle.length 'disabled'}}">Set title</button>
+    </div>
+    <div class="form-group">
+        <label>Feedback Data:</label>
+        {{textarea value=_feedbackData class="form-control" placeholder=feedbackData}}
+    </div>
+    <div class="form-group">
+        <button {{action 'setFeedback'}} class="btn {{unless _feedbackData.length 'disabled'}}">Set feedback</button>
+    </div>
+</div>
+
+<hr>
+
+{{dynamic-form schema=model data=data}}
+
+<hr>
+
+<p>The controller code for the example above is shown below:</p>
+
+{{#highlight-js}}
+  <pre>/app/routes/demos/actions.js<code>
+
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  _schemaTitle: '',
+  _feedbackData: '',
+  data: {},
+  schemaTitle: Ember.computed.alias('model.schema.title'),
+  feedbackData: Ember.computed.alias('data.feedback'),
+  actions: {
+    setTitle() {
+      let newTitle = this.get('_schemaTitle');
+        if (newTitle) {
+          this.set('schemaTitle', newTitle);
+          this.set('_schemaTitle', '');
+          this.notifyPropertyChange('model');
+        }
+    },
+    setFeedback() {
+      let newFeedback = this.get('_feedbackData');
+      if (newFeedback) {
+        this.set('feedbackData', newFeedback);
+        this.set('_feedbackData', '');
+        this.notifyPropertyChange('model');
+      }
+    }
+  }
+});
+  </code></pre>
+{{/highlight-js}}
+
+<p> And the dynamic-form is rendered like:</p>
+
+{{#highlight-js}}
+  <pre>/app/templates/demos/schema-updates.hbs<code>\{{dynamic-form schema=model data=data}}</code></pre>
+{{/highlight-js}}

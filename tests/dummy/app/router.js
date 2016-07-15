@@ -14,6 +14,7 @@ Router.map(function() {
     this.route('data');
     this.route('actions');
     this.route('change-action');
+    this.route('schema-updates');
   });
 
   this.route('demo', function() {});
