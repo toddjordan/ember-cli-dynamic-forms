@@ -45,5 +45,9 @@ module.exports = function(environment) {
 
   }
 
+  ENV.dynamicForms = {
+    renderer: 'ember'
+  };
+
   return ENV;
 };
