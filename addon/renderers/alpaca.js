@@ -4,4 +4,4 @@ export default Ember.Object.extend({
   render(schema, element) {
     element.alpaca(schema);
   }
-})
+});

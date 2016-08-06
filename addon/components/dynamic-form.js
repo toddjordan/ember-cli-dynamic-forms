@@ -133,6 +133,8 @@ const DynamicForm = Ember.Component.extend({
         if (typeObj) {
           object[key] = typeObj[type.functionName];
         } // else fail with a message that the given type couldn't be found
+      } else if (value === null) {
+        object[key] = '';
       } else if (typeof value === 'object') {
         object[key] = _.transform(value, replaceWithFunction);
       } else {
