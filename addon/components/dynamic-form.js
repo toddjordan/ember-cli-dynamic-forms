@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getOwner from 'ember-getowner-polyfill';
+const { set, get } = Ember;
 
 const TYPE_MAP = {
   validator: {
@@ -15,21 +16,22 @@ const TYPE_MAP = {
 const DynamicForm = Ember.Component.extend({
 
   renderSchema: Ember.K,
-  _renderer: null,
+  formRenderer: null,
+
+  init() {
+    this._super(...arguments);
+    let container = getOwner(this);
+    let config = container.resolveRegistration('config:environment');
+    if (config.dynamicForms && config.dynamicForms.renderer) {
+      set(this, 'formRenderer', container.lookup(`${config.dynamicForms.renderer}:renderers`));
+    } else {
+      set(this, 'formRenderer', container.lookup('alpaca:renderers'));
+    }
+  },
 
   _render() {
-    var renderer = this.get('_renderer');
-    if (!renderer) {
-      let container = getOwner(this);
-      let config = container.resolveRegistration('config:environment');
-      if (config.dynamicForms && config.dynamicForms.renderer) {
-	renderer = container.lookup(`${config.dynamicForms.renderer}:renderers`);
-      } else {
-	renderer = container.lookup('alpaca:renderers');
-      }
-      this.set('_renderer', renderer);
-    }
-    renderer.render(this.get('renderSchema'), this.$());
+    let renderer = get(this, 'formRenderer');
+    renderer.render(get(this, 'renderSchema'), this.$());
   },
 
   didInsertElement() {
@@ -39,13 +41,15 @@ const DynamicForm = Ember.Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    let schemaObj = this._initSchema(this.get('schema'));
-    let schemaWithData = this._processData(schemaObj);
-    let schemaWithPostRender = this._buildPostRender(schemaWithData);
-    let schemaWithActions = this._addActions(schemaWithPostRender);
-    let filteredSchema = this._processFilters(schemaWithActions);
-    let mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
-    this.set('renderSchema', mappedSchema);
+    let buildSchema = _.flow([
+      _.bind(this._initSchema, this),
+      _.bind(this._processData, this),
+      _.bind(this._buildPostRender, this),
+      _.bind(this._addActions, this),
+      _.bind(this._processFilters, this),
+      _.bind(this._replaceKeywordsWithFunctions, this)
+    ]);
+    set(this, 'renderSchema', buildSchema(get(this, 'schema')));
   },
 
   didUpdateAttrs() {
@@ -53,10 +57,11 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _buildPostRender(schemaObj) {
+    Ember.Logger.debug('_buildPostRender', schemaObj);
     let postRenderFns = [];
-    if (this.get('changeAction')) {
+    if (get(this, 'changeAction')) {
       let fields = Object.keys(schemaObj.schema.properties);
-      const changeAction = this.get('changeAction');
+      let changeAction = get(this, 'changeAction');
       let changeFn = function (control) {
         fields.forEach((field) => {
           control.childrenByPropertyId[field].on('change', function (e) {
@@ -72,8 +77,8 @@ const DynamicForm = Ember.Component.extend({
       };
       postRenderFns.push(changeFn);
     }
-    if (this.get('postRender')) {
-      postRenderFns.push(this.get('postRender'));
+    if (get(this, 'postRender')) {
+      postRenderFns.push(get(this, 'postRender'));
     }
 
     if (postRenderFns.length > 0) {
@@ -81,7 +86,7 @@ const DynamicForm = Ember.Component.extend({
         postRenderFns.push(schemaObj.postRender);
       }
       schemaObj.postRender = function () {
-        const args = arguments;
+        let args = arguments;
         postRenderFns.forEach((fn) => fn(args[0]));
       };
     }
@@ -89,7 +94,8 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _addActions(schemaObj) {
-    return _.reduce(this.get('formActions'), (result, value, key) => {
+    Ember.Logger.debug('_addActions', schemaObj);
+    return _.reduce(get(this, 'formActions'), (result, value, key) => {
       if ((((((result || {}).options || {}).form || {}).buttons || {})[key])) {
         result.options.form.buttons[key].click = value;
       }
@@ -98,14 +104,15 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _processFilters(schemaObj) {
+    Ember.Logger.debug('_processData', schemaObj);
     if (!(schemaObj && schemaObj.options && schemaObj.options.fields)) {
       return schemaObj;
     }
-    const optionFields = schemaObj.options.fields;
-    const newSchema = _.reduce(optionFields, (result, val, key) => {
+    let optionFields = schemaObj.options.fields;
+    let newSchema = _.reduce(optionFields, (result, val, key) => {
       if(val['filter-rules']) {
         val['filter-rules'].forEach((element) => {
-          const filterRule = getOwner(this).lookup(`${element}:dynamic-forms.filter-rules`);
+          let filterRule = getOwner(this).lookup(`${element}:dynamic-forms.filter-rules`);
           filterRule.filter(key, result);
         });
       }
@@ -115,12 +122,13 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _processData(schemaObj) {
-    if (this.get('data') && Ember.typeOf(this.get('data')) === 'object') {
+    Ember.Logger.debug('_processData', schemaObj);
+    if (get(this, 'data') && Ember.typeOf(get(this, 'data')) === 'object') {
       schemaObj.data = this.get('data');
-    } else if (this.get('data') && Ember.typeOf(this.get('data')) === 'instance') {
+    } else if (get(this, 'data') && Ember.typeOf(get(this, 'data')) === 'instance') {
       let keys = Object.keys(schemaObj.schema.properties);
       let dataObj = _.reduce(keys, (data, key) => {
-        data[key] = this.get('data').get(key);
+        data[key] = get(this, 'data').get(key);
         return data;
       }, {});
       schemaObj.data = dataObj;
@@ -129,22 +137,20 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _initSchema(schema) {
-    let schemaObj;
+    Ember.Logger.debug('_initSchema', schema);
     if (typeof schema === 'string') {
-      schemaObj = JSON.parse(schema);
-    } else {
-      schemaObj = _.clone(schema, true);
+      return JSON.parse(schema);
     }
-
-    return schemaObj;
+    return _.clone(schema, true);
   },
 
   _replaceKeywordsWithFunctions(schemaObj) {
-    const container = getOwner(this);
-    const replaceWithFunction = function (object, value, key) {
+    Ember.Logger.debug('_replaceKeywordsWithFunctions', schemaObj);
+    let container = getOwner(this);
+    let replaceWithFunction = function (object, value, key) {
       if (TYPE_MAP.hasOwnProperty(key) && typeof value === 'string') {
-        const type = TYPE_MAP[key];
-        const typeObj = container.lookup(`${value}:${type.namespace}`);
+        let type = TYPE_MAP[key];
+        let typeObj = container.lookup(`${value}:${type.namespace}`);
         if (typeObj) {
           object[key] = typeObj[type.functionName];
         } // else fail with a message that the given type couldn't be found
