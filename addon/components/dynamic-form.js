@@ -59,6 +59,9 @@ const DynamicForm = Ember.Component.extend({
       const changeAction = this.get('changeAction');
       let changeFn = function (control) {
         fields.forEach((field) => {
+          control.childrenByPropertyId[field].on('change', function (e) {
+            changeAction(e, field);
+          });
           control.childrenByPropertyId[field].on('keyup', function (e) {
             changeAction(e, field);
           });
