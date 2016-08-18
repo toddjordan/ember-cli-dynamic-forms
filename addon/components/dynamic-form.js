@@ -15,18 +15,26 @@ const TYPE_MAP = {
 const DynamicForm = Ember.Component.extend({
 
   renderSchema: Ember.K,
+  _renderer: null,
+
+  _render() {
+    var renderer = this.get('_renderer');
+    if (!renderer) {
+      let container = getOwner(this);
+      let config = container.resolveRegistration('config:environment');
+      if (config.dynamicForms && config.dynamicForms.renderer) {
+	renderer = container.lookup(`${config.dynamicForms.renderer}:renderers`);
+      } else {
+	renderer = container.lookup('alpaca:renderers');
+      }
+      this.set('_renderer', renderer);
+    }
+    renderer.render(this.get('renderSchema'), this.$());
+  },
 
   didInsertElement() {
     this._super(...arguments);
-    let container = getOwner(this);
-    let renderer;
-    let config = container.resolveRegistration('config:environment');
-    if (config.dynamicForms && config.dynamicForms.renderer) {
-      renderer = container.lookup(`${config.dynamicForms.renderer}:renderers`);
-    } else {
-      renderer = container.lookup('alpaca:renderers');
-    }
-    renderer.render(this.get('renderSchema'), this.$());
+    this._render();
   },
 
   didReceiveAttrs() {
@@ -38,6 +46,9 @@ const DynamicForm = Ember.Component.extend({
     let filteredSchema = this._processFilters(schemaWithActions);
     let mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
     this.set('renderSchema', mappedSchema);
+    if (this.get('element')) {
+      this._render();
+    }
   },
 
   _buildPostRender(schemaObj) {
