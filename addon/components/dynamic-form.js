@@ -46,9 +46,10 @@ const DynamicForm = Ember.Component.extend({
     let filteredSchema = this._processFilters(schemaWithActions);
     let mappedSchema = this._replaceKeywordsWithFunctions(filteredSchema);
     this.set('renderSchema', mappedSchema);
-    if (this.get('element')) {
-      this._render();
-    }
+  },
+
+  didUpdateAttrs() {
+    this._render();
   },
 
   _buildPostRender(schemaObj) {
