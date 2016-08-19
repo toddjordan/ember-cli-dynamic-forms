@@ -30,6 +30,7 @@ const DynamicForm = Ember.Component.extend({
   },
 
   _render() {
+    Ember.Logger.debug('_render');
     let renderer = get(this, 'formRenderer');
     renderer.render(get(this, 'renderSchema'), this.$());
   },
@@ -41,6 +42,7 @@ const DynamicForm = Ember.Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
+    Ember.Logger.debug('didReceiveAttrs');
     let buildSchema = _.flow([
       _.bind(this._initSchema, this),
       _.bind(this._processData, this),
@@ -52,7 +54,9 @@ const DynamicForm = Ember.Component.extend({
     set(this, 'renderSchema', buildSchema(get(this, 'schema')));
   },
 
-  didUpdateAttrs() {
+  willUpdate() {
+    this._super(...arguments);
+    Ember.Logger.debug('willUpdate');
     this._render();
   },
 
