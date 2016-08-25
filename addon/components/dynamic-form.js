@@ -25,14 +25,16 @@ const DynamicForm = Ember.Component.extend({
     if (config.dynamicForms && config.dynamicForms.renderer) {
       set(this, 'formRenderer', container.lookup(`${config.dynamicForms.renderer}:renderers`));
     } else {
+      //default to alpaca
       set(this, 'formRenderer', container.lookup('alpaca:renderers'));
     }
+    get(this, 'formRenderer').initLayout(this);
   },
 
   _render() {
     Ember.Logger.debug('_render');
     let renderer = get(this, 'formRenderer');
-    renderer.render(get(this, 'renderSchema'), this.$());
+    renderer.render(get(this, 'renderSchema'), this);
   },
 
   didInsertElement() {
