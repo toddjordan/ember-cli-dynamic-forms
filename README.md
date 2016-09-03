@@ -38,6 +38,18 @@ For more details component usage and asset generation, see the [ember-cli-dynami
 
 The schema variable can be in string or object form, but needs to be a valid json-schema alpaca form definition. See the [alpacajs website](http://alpacajs.org) for more information about building valid schemas.
 
+## Excluding Assets
+By default ember-cli-dynamic-forms imports bootstrap and alpaca assets to the broccoli tree. If you wish to disable this behaviour and use your own assets, simply specify it in your ember-cli-build.js.
+ 
+```js
+var app = new EmberApp({
+  'ember-cli-dynamic-forms': {
+    includeAssets: false, // disables the includion of all assets
+    includeBootstrapAssets: false // disables just the inclusion of bootstrap assets whilst leaving the rest inplace
+  }
+});
+```
+
 ## Development
 
 ### Setup
