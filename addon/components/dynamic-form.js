@@ -1,3 +1,4 @@
+/*global _:false*/
 import Ember from 'ember';
 import getOwner from 'ember-getowner-polyfill';
 const { set, get } = Ember;
