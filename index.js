@@ -38,7 +38,12 @@ module.exports = {
     }
 
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.js');
-    app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
+
+    // include alpaca styles unless explicitly told otherwise
+    if(!('includeAlpacaStyles' in options) || options.includeAlpacaStyles) {
+      app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
+    }
+
     app.import(app.bowerDirectory + '/lodash/lodash.js');
 
   },
