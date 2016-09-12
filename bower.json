@@ -5,14 +5,12 @@
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
     "jquery": "1.11.3",
-    "alpaca": "1.5.18",
+    "alpaca": "git@github.com:gitana/alpaca.git#master",
     "bootstrap": "3.3.2",
-    "lodash": "~4.6.1",
-    "jquery-price-format": "https://github.com/flaviosilveira/Jquery-Price-Format.git#v2.0"
+    "lodash": "~4.6.1"
   },
   "resolutions": {
     "jquery": "1.11.3",
-    "jquery-price-format": "v2.0",
     "bootstrap": "3.3.2"
   }
 }
