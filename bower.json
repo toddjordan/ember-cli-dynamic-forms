@@ -5,7 +5,7 @@
     "ember-cli-shims": "0.1.0",
     "ember-cli-test-loader": "0.2.2",
     "jquery": "1.11.3",
-    "alpaca": "git@github.com:gitana/alpaca.git#master",
+    "alpaca": "https://github.com/gitana/alpaca.git#ade59b36bebb0f2de04aa34a05c44e23281ea17a",
     "bootstrap": "3.3.2",
     "lodash": "~4.6.1"
   },
