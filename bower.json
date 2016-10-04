@@ -1,9 +1,8 @@
 {
   "name": "ember-cli-dynamic-forms",
   "dependencies": {
-    "ember": "~2.5.0",
-    "ember-cli-shims": "0.1.0",
-    "ember-cli-test-loader": "0.2.2",
+    "ember": "~2.8.0",
+    "ember-cli-shims": "0.1.1",
     "jquery": ">=2.1.0",
     "alpaca": "~1.5.22",
     "bootstrap": "3.3.2",
