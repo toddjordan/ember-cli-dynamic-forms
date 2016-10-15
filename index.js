@@ -38,6 +38,7 @@ module.exports = {
     }
 
     app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.js');
+
     // include alpaca styles unless explicitly told otherwise
     if(!('includeAlpacaStyles' in options) || options.includeAlpacaStyles) {
       app.import(app.bowerDirectory + '/alpaca/dist/alpaca/bootstrap/alpaca.css');
