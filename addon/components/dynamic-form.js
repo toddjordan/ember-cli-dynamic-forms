@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import getOwner from 'ember-getowner-polyfill';
+import _ from 'lodash';
 const { set, get } = Ember;
 
 const TYPE_MAP = {
