@@ -15,7 +15,7 @@ const TYPE_MAP = {
 
 const DynamicForm = Ember.Component.extend({
 
-  renderSchema: Ember.K,
+  renderSchema() {},
   formRenderer: null,
 
   init() {
