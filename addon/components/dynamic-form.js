@@ -1,6 +1,5 @@
 import Ember from 'ember';
-import getOwner from 'ember-getowner-polyfill';
-const { set, get } = Ember;
+const { set, get, getOwner } = Ember;
 
 const TYPE_MAP = {
   validator: {
