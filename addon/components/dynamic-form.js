@@ -1,3 +1,4 @@
+/*global _:false*/
 import Ember from 'ember';
 const { set, get, getOwner } = Ember;
 
